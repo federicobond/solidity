@@ -567,6 +567,8 @@ void CodeFragment::constructOperation(sp::utree const& _t, CompilerState& _s)
 				m_asm.append(i.m_asm);
 			m_asm.popTo(1);
 		}
+		else if (us == "__PUSHSIZE")
+			m_asm.appendProgramSize();
 		else if (us.find_first_of("1234567890") != 0 && us.find_first_not_of("QWERTYUIOPASDFGHJKLZXCVBNM1234567890_") == string::npos)
 			m_asm.append((u256)varAddress(s));
 		else
