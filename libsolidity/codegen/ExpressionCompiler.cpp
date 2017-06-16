@@ -1785,6 +1785,7 @@ void ExpressionCompiler::appendVariable(VariableDeclaration const& _variable, Ex
 		setLValueFromDeclaration(_variable, _expression);
 	else
 	{
+		solUnimplementedAssert(_variable.value(), "Not implemented for constant parameters.");
 		_variable.value()->accept(*this);
 		utils().convertType(*_variable.value()->annotation().type, *_variable.annotation().type);
 	}

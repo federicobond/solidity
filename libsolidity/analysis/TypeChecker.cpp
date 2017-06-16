@@ -487,7 +487,10 @@ bool TypeChecker::visit(FunctionDefinition const& _function)
 
 bool TypeChecker::visit(VariableDeclaration const& _variable)
 {
-	if (m_scope->contractKind() == ContractDefinition::ContractKind::Interface)
+	if (
+		m_scope->contractKind() == ContractDefinition::ContractKind::Interface &&
+		!_variable->isCallableParameter()
+	)
 		m_errorReporter.typeError(_variable.location(), "Variables cannot be declared in interfaces.");
 
 	// Variables can be declared without type (with "var"), in which case the first assignment
