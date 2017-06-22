@@ -2173,6 +2173,16 @@ BOOST_AUTO_TEST_CASE(test_byte_is_alias_of_byte1)
 	ETH_TEST_REQUIRE_NO_THROW(parseAndAnalyse(text), "Type resolving failed");
 }
 
+BOOST_AUTO_TEST_CASE(warns_assigning_decimal_to_bytesxx)
+{
+	char const* text = R"(
+		contract Foo {
+			bytes32 a = 7;
+		}
+	)";
+	CHECK_WARNING(text, "Assigning a decimal literal to bytesXX variable may lead to unexpected results.");
+}
+
 BOOST_AUTO_TEST_CASE(assigning_value_to_const_variable)
 {
 	char const* text = R"(

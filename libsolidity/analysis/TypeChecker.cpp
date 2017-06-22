@@ -1793,7 +1793,14 @@ void TypeChecker::expectType(Expression const& _expression, Type const& _expecte
 				_expectedType.toString() +
 				"."
 			);
-	}		
+	}
+
+	if (
+		type(_expression)->category() == Type::Category::RationalNumber &&
+		_expectedType.category() == Type::Category::FixedBytes
+	)
+		m_errorReporter.warning("Assigning a decimal literal to bytesXX variable may lead to unexpected results.");
+
 }
 
 void TypeChecker::requireLValue(Expression const& _expression)
